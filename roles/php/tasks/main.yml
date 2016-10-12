@@ -1,0 +1,24 @@
+# file: roles/php/tasks/main.yml
+---
+
+- name: Install software-properties
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+    - python-software-properties
+    - software-properties-common
+
+- name: Install repository
+  apt: pkg=python-apt
+
+- name: Add repository
+  apt_repository: repo='ppa:ondrej/php'
+
+- name: Install php and php-modules
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - php
+    - php-mysql
+    - php-gd
+    - php-mbstring
+  notify:
+  - restart httpd

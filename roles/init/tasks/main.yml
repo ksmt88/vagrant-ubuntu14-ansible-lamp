@@ -1,0 +1,11 @@
+# file: roles/init/tasks/main.yml
+---
+
+- name: Update time-zone
+  file: src=/usr/share/zoneinfo/Asia/Tokyo dest=/etc/localtime owner=root group=root state=link
+
+- name: Install vim, git
+  apt: pkg={{item}} state=present update_cache=yes
+  with_items:
+    - git
+    - vim

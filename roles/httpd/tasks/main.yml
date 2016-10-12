@@ -1,0 +1,6 @@
+# file: roles/httpd/tasks/main.yml
+
+- name: Install httpd 
+  apt: pkg={{item}} state=present update_cache=yes
+  with_items:
+     - apache2

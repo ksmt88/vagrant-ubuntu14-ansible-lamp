@@ -1,0 +1,12 @@
+# file: roles/mysql/tasks/main.yml
+
+- name: Install mysql
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - mysql-server
+
+- name: Update my.conf
+  template: src=.my.cnf.j2 dest=~/.my.cnf owner=root group=root mode=0644
+
+- name: Start mysql
+  service: name=mysql state=started enabled=true
